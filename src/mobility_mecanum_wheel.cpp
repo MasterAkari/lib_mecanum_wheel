@@ -111,10 +111,10 @@ void MecanumWheel::go_north(int speed)
     this->_request_speed_rl = speed;
     this->_order            = ORDER_STATE::GO_NORTH;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_northeast(int speed)
@@ -126,10 +126,10 @@ void MecanumWheel::go_northeast(int speed)
     this->_request_speed_rl = speed;
     this->_order            = ORDER_STATE::GO_NORTHEAST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_east(int speed)
@@ -141,10 +141,10 @@ void MecanumWheel::go_east(int speed)
     this->_request_speed_rl = -speed;
     this->_order            = ORDER_STATE::GO_EAST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_southeast(int speed)
@@ -156,10 +156,10 @@ void MecanumWheel::go_southeast(int speed)
     this->_request_speed_rl = -speed;
     this->_order            = ORDER_STATE::GO_SOUTHEAST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_south(int speed)
@@ -171,10 +171,10 @@ void MecanumWheel::go_south(int speed)
     this->_request_speed_rl = -speed;
     this->_order            = ORDER_STATE::GO_SOUTH;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_southwest(int speed)
@@ -186,10 +186,10 @@ void MecanumWheel::go_southwest(int speed)
     this->_request_speed_rl = 0;
     this->_order            = ORDER_STATE::GO_SOUTHWEST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_west(int speed)
@@ -201,10 +201,10 @@ void MecanumWheel::go_west(int speed)
     this->_request_speed_rl = speed;
     this->_order            = ORDER_STATE::GO_WEST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::go_northwest(int speed)
@@ -216,10 +216,10 @@ void MecanumWheel::go_northwest(int speed)
     this->_request_speed_rl = 0;
     this->_order            = ORDER_STATE::GO_NORTHWEST;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::clockwise(int speed)
@@ -231,10 +231,10 @@ void MecanumWheel::clockwise(int speed)
     this->_request_speed_rl = speed;
     this->_order            = ORDER_STATE::CLOCKWISE;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::anticlockwise(int speed)
@@ -246,10 +246,10 @@ void MecanumWheel::anticlockwise(int speed)
     this->_request_speed_rl = -speed;
     this->_order            = ORDER_STATE::ANTICLOCKWISE;
     if (false == this->_flag_heartbeat) {
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
+        this->_front_right->move(this->_request_speed_fr);
+        this->_front_left->move(this->_request_speed_fl);
+        this->_rear_right->move(this->_request_speed_rr);
+        this->_rear_left->move(this->_request_speed_rl);
     }
 }
 void MecanumWheel::stop()

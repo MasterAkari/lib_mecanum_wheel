@@ -18,6 +18,25 @@ MOBILITY::L298NMotor front_left;
 MOBILITY::L298NMotor rear_right;
 MOBILITY::L298NMotor rear_left;
 
+void test_move_00()
+{
+    int SPEED            = 150;
+    int DELAY_TIMES      = 500;
+    int DELAY_TIMES_SPAN = 5000;
+
+    Serial.println("  * go_north");
+    my_car.go_north(SPEED);
+    delay(DELAY_TIMES);
+    my_car.stop();
+    delay(DELAY_TIMES_SPAN);
+
+    Serial.println("  * go_south");
+    my_car.go_south(SPEED);
+    delay(DELAY_TIMES);
+    my_car.stop();
+    delay(DELAY_TIMES_SPAN);
+}
+
 void test_move_01()
 {
     int SPEED            = 150;
@@ -85,6 +104,10 @@ void test_move_01()
     delay(DELAY_TIMES_SPAN);
 }
 
+void test_move_02()
+{
+}
+
 void setup()
 {
     Serial.begin(115200);
@@ -120,8 +143,14 @@ void setup()
     Serial.println("Setup mecanum wheel");
     my_car.setup(&front_right, &front_left, &rear_right, &rear_left);
 
+    Serial.println("* Test move 00");
+    test_move_00();
+
     Serial.println("* Test move 01");
     test_move_01();
+
+    Serial.println("* Test move 02");
+    test_move_02();
 
     Serial.println("########################################");
 }

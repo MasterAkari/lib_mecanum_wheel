@@ -73,5 +73,6 @@ private:
     IMotorDriver *_rear_right  = nullptr;
     IMotorDriver *_rear_left   = nullptr;
 };
+
 } // namespace MOBILITY
 #endif

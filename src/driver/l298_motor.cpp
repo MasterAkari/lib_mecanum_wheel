@@ -24,48 +24,80 @@ L298NMotor::~L298NMotor()
 
 bool L298NMotor::setup(uint8_t pin1, uint8_t pin2, uint8_t speed_pin)
 {
+    bool result = true;
+
     this->_pin_a     = pin1;
     this->_pin_b     = pin2;
     this->_pin_speed = speed_pin;
+
     pinMode(this->_pin_a, OUTPUT);
     pinMode(this->_pin_b, OUTPUT);
     pinMode(this->_pin_speed, OUTPUT);
 
-    return true;
+    digitalWrite(this->_pin_a, HIGH);
+    digitalWrite(this->_pin_b, HIGH);
+    this->_direction = NOT_SET;
+
+    this->speed(0);
+    return result;
 }
 
-bool L298NMotor::speed(int speed)
+void L298NMotor::speed(int speed)
 {
-    bool result   = true;
-    int type      = 0;
+    analogWrite(this->_pin_speed, abs(speed));
+}
+
+void L298NMotor::forward()
+{
+    if (FORWARD == this->_direction) {
+        return;
+    }
+    if (true == this->_flag_invert) {
+        digitalWrite(this->_pin_a, LOW);
+        digitalWrite(this->_pin_b, HIGH);
+    } else {
+        digitalWrite(this->_pin_a, HIGH);
+        digitalWrite(this->_pin_b, LOW);
+    }
+    this->_direction = FORWARD;
+}
+
+void L298NMotor::backward()
+{
+    if (BACKWARD == this->_direction) {
+        return;
+    }
+    if (true == this->_flag_invert) {
+        digitalWrite(this->_pin_a, HIGH);
+        digitalWrite(this->_pin_b, LOW);
+    } else {
+        digitalWrite(this->_pin_a, LOW);
+        digitalWrite(this->_pin_b, HIGH);
+    }
+    this->_direction = BACKWARD;
+}
+
+void L298NMotor::move(int speed)
+{
     int set_speed = abs(speed);
     if (speed == 0) {
         // stop
-        type = 0;
+        this->speed(0);
     } else if (speed < 0) {
-        // back
-        type = this->_flag_invert ? 1 : 2;
+        // backward
+        this->backward();
+        this->speed(set_speed);
     } else {
         // forward
-        type = this->_flag_invert ? 2 : 1;
+        this->forward();
+        this->speed(set_speed);
     }
-
-    if (type == 1) {
-        digitalWrite(this->_pin_a, HIGH);
-        digitalWrite(this->_pin_b, LOW);
-        analogWrite(this->_pin_speed, set_speed);
-    } else if (type == 2) {
-        digitalWrite(this->_pin_a, LOW);
-        digitalWrite(this->_pin_b, HIGH);
-        analogWrite(this->_pin_speed, set_speed);
-    } else {
-        analogWrite(this->_pin_speed, 0);
-    }
-    return result;
 }
+
 bool L298NMotor::invert()
 {
     this->_flag_invert = !this->_flag_invert;
+    this->_direction   = NOT_SET;
     return this->_flag_invert;
 }
 

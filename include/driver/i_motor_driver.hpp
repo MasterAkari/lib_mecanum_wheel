@@ -15,7 +15,10 @@ namespace MOBILITY
 class IMotorDriver {
 public:
     virtual ~IMotorDriver()       = default;
-    virtual bool speed(int speed) = 0;
+    virtual void move(int speed)  = 0;
+    virtual void speed(int speed) = 0;
+    virtual void forward()        = 0;
+    virtual void backward()       = 0;
 };
 } // namespace MOBILITY
 
