@@ -7,10 +7,9 @@
  * @copyright Copyright (c) 2024
  *
  */
-#include "mobility_mecanum_wheel.hpp"
+#include "unit/mobility_mecanum_wheel.hpp"
 
 #include <Arduino.h>
-#include <Servo.h>
 
 namespace MOBILITY
 {
@@ -44,23 +43,6 @@ bool MecanumWheel::setup(IMotorDriver *front_right, //
     return result;
 }
 
-bool MecanumWheel::heartbeat()
-{
-    if (true == this->_flag_heartbeat) {
-#if 0
-        static int speed_fr = 0;
-        static int speed_fl = 0;
-        static int speed_rr = 0;
-        static int speed_rl = 0;
-#endif
-
-        this->_front_right->speed(this->_request_speed_fr);
-        this->_front_left->speed(this->_request_speed_fl);
-        this->_rear_right->speed(this->_request_speed_rr);
-        this->_rear_left->speed(this->_request_speed_rl);
-    }
-    return true;
-}
 void MecanumWheel::giving_instructions(ORDER_STATE order, int speed)
 {
     switch (order) {
@@ -104,7 +86,6 @@ void MecanumWheel::giving_instructions(ORDER_STATE order, int speed)
 /*motor control*/
 void MecanumWheel::go_north(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = speed;
     this->_request_speed_fl = speed;
     this->_request_speed_rr = speed;
@@ -119,11 +100,10 @@ void MecanumWheel::go_north(int speed)
 }
 void MecanumWheel::go_northeast(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = 0;
     this->_request_speed_fl = speed;
-    this->_request_speed_rr = 0;
-    this->_request_speed_rl = speed;
+    this->_request_speed_rr = speed;
+    this->_request_speed_rl = 0;
     this->_order            = ORDER_STATE::GO_NORTHEAST;
     if (false == this->_flag_heartbeat) {
         this->_front_right->move(this->_request_speed_fr);
@@ -134,7 +114,6 @@ void MecanumWheel::go_northeast(int speed)
 }
 void MecanumWheel::go_east(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = -speed;
     this->_request_speed_fl = speed;
     this->_request_speed_rr = speed;
@@ -149,9 +128,8 @@ void MecanumWheel::go_east(int speed)
 }
 void MecanumWheel::go_southeast(int speed)
 {
-    this->_speed            = speed;
-    this->_request_speed_fr = 0;
-    this->_request_speed_fl = -speed;
+    this->_request_speed_fr = -speed;
+    this->_request_speed_fl = 0;
     this->_request_speed_rr = 0;
     this->_request_speed_rl = -speed;
     this->_order            = ORDER_STATE::GO_SOUTHEAST;
@@ -164,7 +142,6 @@ void MecanumWheel::go_southeast(int speed)
 }
 void MecanumWheel::go_south(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = -speed;
     this->_request_speed_fl = -speed;
     this->_request_speed_rr = -speed;
@@ -179,9 +156,8 @@ void MecanumWheel::go_south(int speed)
 }
 void MecanumWheel::go_southwest(int speed)
 {
-    this->_speed            = speed;
-    this->_request_speed_fr = -speed;
-    this->_request_speed_fl = 0;
+    this->_request_speed_fr = 0;
+    this->_request_speed_fl = -speed;
     this->_request_speed_rr = -speed;
     this->_request_speed_rl = 0;
     this->_order            = ORDER_STATE::GO_SOUTHWEST;
@@ -194,7 +170,6 @@ void MecanumWheel::go_southwest(int speed)
 }
 void MecanumWheel::go_west(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = speed;
     this->_request_speed_fl = -speed;
     this->_request_speed_rr = -speed;
@@ -209,11 +184,10 @@ void MecanumWheel::go_west(int speed)
 }
 void MecanumWheel::go_northwest(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = speed;
     this->_request_speed_fl = 0;
-    this->_request_speed_rr = speed;
-    this->_request_speed_rl = 0;
+    this->_request_speed_rr = 0;
+    this->_request_speed_rl = speed;
     this->_order            = ORDER_STATE::GO_NORTHWEST;
     if (false == this->_flag_heartbeat) {
         this->_front_right->move(this->_request_speed_fr);
@@ -224,7 +198,6 @@ void MecanumWheel::go_northwest(int speed)
 }
 void MecanumWheel::clockwise(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = -speed;
     this->_request_speed_fl = speed;
     this->_request_speed_rr = -speed;
@@ -239,7 +212,6 @@ void MecanumWheel::clockwise(int speed)
 }
 void MecanumWheel::anticlockwise(int speed)
 {
-    this->_speed            = speed;
     this->_request_speed_fr = speed;
     this->_request_speed_fl = -speed;
     this->_request_speed_rr = speed;
@@ -254,7 +226,6 @@ void MecanumWheel::anticlockwise(int speed)
 }
 void MecanumWheel::stop()
 {
-    this->_speed            = 0;
     this->_request_speed_fr = 0;
     this->_request_speed_fl = 0;
     this->_request_speed_rr = 0;

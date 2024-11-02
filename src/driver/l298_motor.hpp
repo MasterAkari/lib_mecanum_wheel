@@ -9,7 +9,7 @@
  */
 #ifndef DC_MOTOR_HPP
 #define DC_MOTOR_HPP
-#include "i_motor_driver.hpp"
+#include "driver/i_motor_driver.hpp"
 
 #include <inttypes.h>
 

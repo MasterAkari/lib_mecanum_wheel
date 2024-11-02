@@ -8,18 +8,15 @@
  *
  */
 #include "driver/l298_motor.hpp"
-#include "mobility_mecanum_wheel.hpp"
+#include "mecanum_wheel_robot.hpp"
 
 #include <Arduino.h>
 
-MOBILITY::MecanumWheel my_car;
-MOBILITY::L298NMotor front_right;
-MOBILITY::L298NMotor front_left;
-MOBILITY::L298NMotor rear_right;
-MOBILITY::L298NMotor rear_left;
+MecanumWheelRobot my_car;
 
 void test_move_00()
 {
+    Serial.println("* test_move_00");
     int SPEED            = 150;
     int DELAY_TIMES      = 500;
     int DELAY_TIMES_SPAN = 5000;
@@ -39,6 +36,7 @@ void test_move_00()
 
 void test_move_01()
 {
+    Serial.println("* test_move_01");
     int SPEED            = 150;
     int DELAY_TIMES      = 500;
     int DELAY_TIMES_SPAN = 2000;
@@ -106,52 +104,40 @@ void test_move_01()
 
 void test_move_02()
 {
+    Serial.println("* test_move_02");
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 void setup()
 {
-    Serial.begin(115200);
+    // Setting up the Mecanum Wheel Robot
+    int scan_loop_times           = 4;
+    unsigned long serial_baudrate = 115200;
+
+    // Setting up the serial port
+    Serial.begin(serial_baudrate);
     while (!Serial) {
         delay(1000);
     }
 
-    Serial.println("Hello, Mecanum Wheel!");
-    int fr_speed_pin = FR_SPEED_PIN;
-    int fr_pin1      = FR_PIN1;
-    int fr_pin2      = FR_PIN2;
-    int fl_speed_pin = FL_SPEED_PIN;
-    int fl_pin1      = FL_PIN1;
-    int fl_pin2      = FL_PIN2;
-    int rr_speed_pin = RR_SPEED_PIN;
-    int rr_pin1      = RR_PIN1;
-    int rr_pin2      = RR_PIN2;
-    int rl_speed_pin = RL_SPEED_PIN;
-    int rl_pin1      = RL_PIN1;
-    int rl_pin2      = RL_PIN2;
+    // Robot initialization
+    my_car.set_scan_loop_times(scan_loop_times);
+    bool result = my_car.begin();
+    while (false == result) {
+        Serial.println("[ERROR] Initialization failed. Mecanum Wheel Robot.");
+        delay(1000 * 5);
+    }
 
-    Serial.println("Setup motor driver");
-    Serial.println("# Front Right : " + String(fr_speed_pin) + " " + String(fr_pin1) + " " + String(fr_pin2));
-    front_right.setup(fr_pin1, fr_pin2, fr_speed_pin);
-    Serial.println("# Front Left  : " + String(fl_speed_pin) + " " + String(fl_pin1) + " " + String(fl_pin2));
-    front_left.setup(fl_pin1, fl_pin2, fl_speed_pin);
-    Serial.println("# Rear Right  : " + String(rr_speed_pin) + " " + String(rr_pin1) + " " + String(rr_pin2));
-    rear_right.setup(rr_pin1, rr_pin2, rr_speed_pin);
-    Serial.println("# Rear Left   : " + String(rl_speed_pin) + " " + String(rl_pin1) + " " + String(rl_pin2));
-    rear_left.setup(rl_pin1, rl_pin2, rl_speed_pin);
-
+    // Test
     Serial.println("########################################");
-    Serial.println("Setup mecanum wheel");
-    my_car.setup(&front_right, &front_left, &rear_right, &rear_left);
+    Serial.println("Hello, Mecanum Wheel Robot!");
 
-    Serial.println("* Test move 00");
     test_move_00();
-
-    Serial.println("* Test move 01");
     test_move_01();
-
-    Serial.println("* Test move 02");
     test_move_02();
 
+    Serial.println("Bye, Mecanum Wheel!");
     Serial.println("########################################");
 }
 

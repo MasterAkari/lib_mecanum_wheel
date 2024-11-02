@@ -38,7 +38,6 @@ public:
                IMotorDriver *front_left,
                IMotorDriver *rear_right,
                IMotorDriver *rear_left);
-    bool heartbeat();
 
 public:
     void giving_instructions(ORDER_STATE order, int speed);
@@ -54,12 +53,18 @@ public:
     void anticlockwise(int speed);
     void stop();
 
+    void get_speed(int &fr, int &fl, int &rr, int &rl)
+    {
+        fr = this->_request_speed_fr;
+        fl = this->_request_speed_fl;
+        rr = this->_request_speed_rr;
+        rl = this->_request_speed_rl;
+    }
+
 private:
     int _per_millisecond     = 0;
     int _timeout_millisecond = 1000;
     bool _flag_heartbeat     = false;
-
-    int _speed = 0;
 
     int _request_time     = 0;
     int _request_speed_fr = 0;
